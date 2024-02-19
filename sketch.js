@@ -11,6 +11,10 @@ function draw() {
     fill(255);
     rect(i, 0, 10, height);
 
+    
+
+
+
     Text('Its your boy Museveni', 100,100)
   }
 }
