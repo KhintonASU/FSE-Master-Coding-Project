@@ -18,11 +18,11 @@ function switchToMM(){
   currentActivity = 0;
   
   // Hide the home page button, show the activity buttons
-  menuButton.hide();
-  game1Button.show();
-  game2Button.show();
-  game3Button.show();
-  game4Button.show();
+  menuButton.show();
+  faizanGameButton.show();
+  kaviousgameButton.show();
+  musevenigameButton.show();
+  noahgameButton.show();
 }
 
 function setup() {
@@ -34,45 +34,20 @@ function setup() {
   menuButton.hide();
   
   faizanGameButton = createButton('Follow The Outline Game');
-  faizanGameButton.position(10, 50);
-  faizanGameButton.mousePressed(game1Setup);
+  faizanGameButton.position(10, 50);;
   faizanGameButton.show();
   
   kaviousgameButton = createButton('Drag and Drop Game');
-  kaviousgameButton.position(10, 100);
-  kaviousgameButton.mousePressed(game2Setup);
+  kaviousgameButton.position(10, 100);;
   kaviousgameButton.show();
   
   musevenigameButton = createButton('Typing Game');
-  musevenigameButton.position(10, 150);
-  musevenigameButton.mousePressed(game3Setup);
+  musevenigameButton.position(10, 150);;
   musevenigameButton.show();
   
   noahgameButton = createButton('Stacking Objects Game');
-  noahgameButton.position(10, 200);
-  noahgameButton.mousePressed(game4Setup);
+  noahgameButton.position(10, 200);;
   noahgameButton.show();
-}
-
-
-function draw() {  
-  switch(currentActivity){
-    case 0: 
-      mainMenu();
-      break;
-    case 1: 
-      game1Draw();
-      break;
-    case 2: 
-      game2Draw();
-      break;
-    case 3: 
-      game3Draw();
-      break;
-    case 4: 
-      game4Draw();
-      break;
-  }
 }
 
 function mainMenu(){
@@ -80,21 +55,4 @@ function mainMenu(){
   
   fill('black');
   text('Click an activity', 200, 200);
-}
-
-/*****
-* mousePressed() is a reserved function that is called whenever
-* the user presses the mouse button in the application.
-*****/
-function mousePressed(){
-  // Only game 4 uses the mousePressed function, but the switch statement
-  // makes it easy to add the mousePressed functionality for other games.
-  switch(currentActivity){
-    case 2: 
-      game2MousePressed();
-      break;
-    case 4: 
-      game4MousePressed();
-      break;
-  }
 }
