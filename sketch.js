@@ -1,58 +1,91 @@
-let currentActivity = 0;
-let menuButton, faizanGameButton, kaviousgameButton, musevenigameButton, noahgameButton;
-
-/***** 
-  * If you want to load images or sounds into your application,
-  * try using preload()
-  * https://p5js.org/reference/#/p5/preload
-  *****/
-function preload(){
-  FaizanGamePreload();
-  KaviousGamePreload();
-  MuseveniGamePreload();
-  NaohGamePreload();
-}
-
-function switchToMM(){
-  background(220);
-  currentActivity = 0;
-  
-  // Hide the home page button, show the activity buttons
-  menuButton.show();
-  faizanGameButton.show();
-  kaviousgameButton.show();
-  musevenigameButton.show();
-  noahgameButton.show();
-}
+let welcomeText;
+let homeButton, kaviousgameButton, musevenigameButton, noahgameButton;
+let menuButton;
+let faizangameButton;
 
 function setup() {
-  createCanvas(400, 400);
-  background(220);
-  menuButton = createButton('Home Page');
-  menuButton.position(0, 0);
-  menuButton.mousePressed(switchToMM);
-  menuButton.hide();
-  
-  faizanGameButton = createButton('Follow The Outline Game');
-  faizanGameButton.position(10, 50);;
-  faizanGameButton.show();
-  
-  kaviousgameButton = createButton('Drag and Drop Game');
-  kaviousgameButton.position(10, 100);;
-  kaviousgameButton.show();
-  
-  musevenigameButton = createButton('Typing Game');
-  musevenigameButton.position(10, 150);;
-  musevenigameButton.show();
-  
-  noahgameButton = createButton('Stacking Objects Game');
-  noahgameButton.position(10, 200);;
-  noahgameButton.show();
+  createCanvas(720, 400);
+
+  // Welcome page
+  welcomeText = createP("Welcome To Motorskill Helper");
+  welcomeText.position(width / 2 - welcomeText.width / 2, height / 2 - welcomeText.height / 2);
+
+  // MainMenu button
+  homeButton = createButton("Main Menu");
+  homeButton.position(width / 2 - homeButton.width / 2, height / 2 + 50);
+  homeButton.mousePressed(goToMainMenu);
+
 }
 
-function mainMenu(){
+function draw() {
   background(220);
+}
+
+function goToMainMenu() {
+  welcomeText.remove();
+  homeButton.remove();
   
-  fill('black');
-  text('Click an activity', 200, 200);
+  faizangameButton = createButton('Follow The Outline Game');
+  faizangameButton.position(10, 50);
+  faizangameButton.mousePressed(goToFaizanGame);
+
+  kaviousgameButton = createButton('Drag and Drop Game');
+  kaviousgameButton.position(10, 75);
+  kaviousgameButton.mousePressed(goToKaviousGame)
+ 
+  musevenigameButton = createButton('Typing Game');
+  musevenigameButton.position(10, 100);
+  musevenigameButton.mousePressed(goToMuseveniGame)
+  
+  noahgameButton = createButton('Stacking Objects Game');
+  noahgameButton.position(10, 125);
+  noahgameButton.mousePressed(goToNoahGame)
+}
+
+function goToFaizanGame() {
+  // For now, let's just remove the home page elements
+  faizangameButton.remove();
+  kaviousgameButton.remove();
+  musevenigameButton.remove();
+  noahgameButton.remove();
+
+  homeButton = createButton("Main Menu");
+  homeButton.position(630, 0);
+  homeButton.mousePressed(goToMainMenu);
+}
+
+function goToKaviousGame() {
+  // For now, let's just remove the home page elements
+  faizangameButton.remove();
+  kaviousgameButton.remove();
+  musevenigameButton.remove();
+  noahgameButton.remove();
+
+  homeButton = createButton("Main Menu");
+  homeButton.position(630, 0);
+  homeButton.mousePressed(goToMainMenu);
+}
+
+function goToMuseveniGame() {
+  // For now, let's just remove the home page elements
+  faizangameButton.remove();
+  kaviousgameButton.remove();
+  musevenigameButton.remove();
+  noahgameButton.remove();
+
+  homeButton = createButton("Main Menu");
+  homeButton.position(630, 0);
+  homeButton.mousePressed(goToMainMenu);
+}
+
+function goToNoahGame() {
+  // For now, let's just remove the home page elements
+  faizangameButton.remove();
+  kaviousgameButton.remove();
+  musevenigameButton.remove();
+  noahgameButton.remove();
+
+  homeButton = createButton("Main Menu");
+  homeButton.position(630, 0);
+  homeButton.mousePressed(goToMainMenu);
 }
