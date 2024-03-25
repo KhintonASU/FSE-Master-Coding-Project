@@ -1,6 +1,9 @@
 
 
 // Ball properties
+var startButton = document.createElement("button");
+startButton.textContent = "Start Game";
+
 var ball = {
     x: canvas.width / 2,
     y: canvas.height / 2,
