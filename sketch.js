@@ -1,91 +1,114 @@
 let welcomeText;
-let homeButton, kaviousgameButton, musevenigameButton, noahgameButton;
-let menuButton;
-let faizangameButton;
+let homeButton, kaviousButton, museveniButton, noahButton, faizanButton;
+let currentActivity = 0;
+
+
+function preload(){
+  game1Preload();
+  game2Preload();
+  game3Preload();
+  game4Preload();
+}
+
+function switchToMM(){
+  background(220);
+  currentActivity = 1;
+
+  faizanButton.show();
+  kaviousButton.show();
+  museveniButton.show();
+  noahButton.show();
+  
+}
 
 function setup() {
+  currentActivity = 0;
   createCanvas(720, 400);
 
+  
   // Welcome page
   welcomeText = createP("Welcome To Motorskill Helper");
-  welcomeText.position(width / 2 - welcomeText.width / 2, height / 2 - welcomeText.height / 2);
+  welcomeText.position(120, 100);
+  welcomeText.style('font-size', '36px');
+  welcomeText.style('color', 'darkblue');
 
   // MainMenu button
   homeButton = createButton("Main Menu");
   homeButton.position(width / 2 - homeButton.width / 2, height / 2 + 50);
-  homeButton.mousePressed(goToMainMenu);
+  homeButton.mousePressed(switchToMM);
+
+  faizanButton = createButton('Follow The Outline Game');
+  faizanButton.position(10, 50);
+  faizanButton.mousePressed(game1Setup);
+  faizanButton.hide();
+  
+  kaviousButton = createButton('Drag and Drop Game');
+  kaviousButton.position(10, 75);
+  kaviousButton.mousePressed(game2Setup);
+  kaviousButton.hide();
+
+  museveniButton = createButton('Typing Game');
+  museveniButton.position(10, 100);
+  museveniButton.mousePressed(game3Setup);
+  museveniButton.hide();
+
+  noahButton = createButton('Stacking Objects Game');
+  noahButton.position(10, 125);
+  noahButton.mousePressed(game4Setup);
+  noahButton.hide();
 
 }
 
 function draw() {
   background(220);
+  switch(currentActivity){
+    case 1: 
+      MainMenu();
+    break;
+    case 2: 
+      game1Draw();
+    break;
+    case 3:
+      game2Draw();
+    break;    
+    case 4: 
+      game3Draw();
+    break;    
+    case 5:
+      game4Draw();
+    break;
+  }
 }
 
-function goToMainMenu() {
-  welcomeText.remove();
-  homeButton.remove();
+function MainMenu(){
+  currentActivity = 1;
+  welcomeText.hide();
+  homeButton.position(600,10);
+  homeButton.hide();
   
-  faizangameButton = createButton('Follow The Outline Game');
-  faizangameButton.position(10, 50);
-  faizangameButton.mousePressed(goToFaizanGame);
-
-  kaviousgameButton = createButton('Drag and Drop Game');
-  kaviousgameButton.position(10, 75);
-  kaviousgameButton.mousePressed(goToKaviousGame)
- 
-  musevenigameButton = createButton('Typing Game');
-  musevenigameButton.position(10, 100);
-  musevenigameButton.mousePressed(goToMuseveniGame)
   
-  noahgameButton = createButton('Stacking Objects Game');
-  noahgameButton.position(10, 125);
-  noahgameButton.mousePressed(goToNoahGame)
+  faizanButton.show();
+  kaviousButton.show();
+  museveniButton.show();
+  noahButton.show();
 }
 
-function goToFaizanGame() {
-  // For now, let's just remove the home page elements
-  faizangameButton.remove();
-  kaviousgameButton.remove();
-  musevenigameButton.remove();
-  noahgameButton.remove();
-
-  homeButton = createButton("Main Menu");
-  homeButton.position(630, 0);
-  homeButton.mousePressed(goToMainMenu);
-}
-
-function goToKaviousGame() {
-  // For now, let's just remove the home page elements
-  faizangameButton.remove();
-  kaviousgameButton.remove();
-  musevenigameButton.remove();
-  noahgameButton.remove();
-
-  homeButton = createButton("Main Menu");
-  homeButton.position(630, 0);
-  homeButton.mousePressed(goToMainMenu);
-}
-
-function goToMuseveniGame() {
-  // For now, let's just remove the home page elements
-  faizangameButton.remove();
-  kaviousgameButton.remove();
-  musevenigameButton.remove();
-  noahgameButton.remove();
-
-  homeButton = createButton("Main Menu");
-  homeButton.position(630, 0);
-  homeButton.mousePressed(goToMainMenu);
-}
-
-function goToNoahGame() {
-  // For now, let's just remove the home page elements
-  faizangameButton.remove();
-  kaviousgameButton.remove();
-  musevenigameButton.remove();
-  noahgameButton.remove();
-
-  homeButton = createButton("Main Menu");
-  homeButton.position(630, 0);
-  homeButton.mousePressed(goToMainMenu);
+function mousePressed () {
+  switch(currentActivity){
+    case 1:
+      MainMenu();
+    break;
+    case 2:
+      game1Draw();
+    break;
+    case 3:
+      game2Draw();
+    break;
+    case 4:
+      game3Draw();
+    break;
+    case 5:
+      game4Draw();
+    break;
+  }
 }
