@@ -1,7 +1,12 @@
 let welcomeText;
 let homeButton, kaviousButton, museveniButton, noahButton, faizanButton;
+let faizanDetails = "Follow The Outline Game: This game helps improve fine motor skills by following outlined shapes.";
+let kaviousDetails = "Drag and Drop Game: This game focuses on drag-and-drop interactions to enhance motor skills.";
+let museveniDetails = "Typing Game: This game improves typing speed and accuracy.";
+let noahDetails = "Stacking Objects Game: This game enhances spatial awareness and coordination.";
 let currentActivity = 0;
 let bg;
+let faizanDetailsText, kaviousDetailsText, museveniDetailsText, noahDetailsText;
 
 function preload(){
   game1Preload();
@@ -59,12 +64,19 @@ function setup() {
   museveniButton.mouseOut(buttonOut);
   museveniButton.hide();
 
+
   noahButton = createButton('Stacking Objects Game');
   noahButton.position(10, 275);
   noahButton.mousePressed(noahButtonPressed);
   noahButton.mouseOver(noahButtonHover);
   noahButton.mouseOut(buttonOut);
   noahButton.hide();
+
+  // Create "See Details" text
+  faizanDetailsText = createDetailsText(15, 60, faizanDetails, false);
+  kaviousDetailsText = createDetailsText(15, 135, kaviousDetails, false);
+  museveniDetailsText = createDetailsText(15, 210, museveniDetails, false);
+  noahDetailsText = createDetailsText(15, 285, noahDetails, false);
 
 }
 
@@ -102,12 +114,19 @@ function MainMenu(){
   kaviousButton.show();
   museveniButton.show();
   noahButton.show();
+
+  // Show "See Details" text
+  faizanDetailsText.show();
+  kaviousDetailsText.show();
+  museveniDetailsText.show();
+  noahDetailsText.show();
+
 }
 
 function mousePressed () {
   switch(currentActivity){
     case 1:
-      MainMenu();
+      MainMenu()
     break;
     case 2:
       game1Draw();
@@ -168,4 +187,18 @@ function museveniButtonPressed() {
 function noahButtonPressed() {
   // Call the game4Setup function
   game4Setup();
+}
+
+function createDetailsText(x, y, details, visible) {
+  let detailText = createP('See Details');
+  detailText.position(x, y);
+  detailText.style('font-size', '12px');
+  detailText.style('color', 'blue');
+  if (!visible) {
+    detailText.hide();
+  }
+  detailText.mousePressed(() => {
+    alert(details);
+  });
+  return detailText;
 }

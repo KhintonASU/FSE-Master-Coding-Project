@@ -15,6 +15,10 @@ function game2Setup() {
   museveniButton.hide();
   noahButton.hide();
 
+  faizanDetailsText.hide();
+  kaviousDetailsText.hide();
+  museveniDetailsText.hide();
+  noahDetailsText.hide();
 }
 
 

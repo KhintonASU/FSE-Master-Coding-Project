@@ -15,6 +15,11 @@ function game1Setup() {
   museveniButton.hide();
   noahButton.hide();
 
+  faizanDetailsText.hide();
+  kaviousDetailsText.hide();
+  museveniDetailsText.hide();
+  noahDetailsText.hide();
+
 }
 
 //draw game propery (please make sure the name of function stays as is.)
