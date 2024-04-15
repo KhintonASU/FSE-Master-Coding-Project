@@ -51,19 +51,38 @@ let greenPercentage = (greenFrames / gameTimer) * 100;
 
 }
 
+// function moveSquare() {
+//   squareX += speedX;
+//   squareY += speedY;
+//   if (squareX <= 0 || squareX >= width - 50) {
+//       speedX = random(-5, 5);
+//     }
+    
+//     if (squareY <= 0 || squareY >= height - 50) {
+//       speedY = random(1, 5); 
+//     }
+    
+// }
 function moveSquare() {
   squareX += speedX;
   squareY += speedY;
-  if (squareX <= 0 || squareX >= width - 50) {
-      speedX = random(-5, 5);
-    }
-    
-    if (squareY <= 0 || squareY >= height - 50) {
-      speedY = random(1, 5); 
-    }
-    
-}
 
+  // Randomly change speed every 60 frames
+  if (gameTimer % 60 == 0) {
+    speedX = random(-5, 5);
+    speedY = random(-5, 5);
+  }
+
+  // Bounce off edges
+  if (squareX <= 0 || squareX >= width - 50) {
+    speedX = -speedX; 
+  }
+
+  if (squareY <= 0 || squareY >= height - 50) {
+    speedY = -speedY;
+  }
+
+}
 function drawSquare() {
   // Check if mouse is on the square
   if (mouseX > squareX && mouseX < squareX + 50 && mouseY > squareY && mouseY < squareY + 50) {
