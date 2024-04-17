@@ -32,19 +32,40 @@ function game1Setup() {
 }
 
 //draw game propery (please make sure the name of function stays as is.)
-function game1Draw(){
+function game1Draw() {
   background(255);
+
   if (!gameOverFlag) {
-  moveSquare();
-  drawSquare();
-  gameTimer++;
-  if (gameTimer > 10 * 30 ) {
+    moveSquare();
+    drawSquare();
+    gameTimer++;
+
+    if (gameTimer > 10 * 30) {
       gameOver();
     }
+  }
+
+  if (gameOverFlag) {
+    // Game over logic
+    let greenPercentage = (greenFrames / gameTimer) * 100;
+    fill(0);
+    textSize(32);
+    text("Game Over", width / 200, height / 2.25);
+    text(
+      "Green Percentage: " + nf(greenPercentage, 2, 2) + "%",
+      width / 200,
+      height / 2 + 20
+    );
+    text("Click To Restart", width / 200, height / 2 + 60);
+
+    // Check for mouse click
+
+  }
 }
-}
+
+
 function restartGame() {
-  if (gameOverFlag == true) {
+
 
     gameTimer = 0;
     greenFrames = 0;
@@ -54,8 +75,8 @@ function restartGame() {
     speedY = 2;
     gameOverFlag = false;
     loop(); // Restart the game loop
-    restartGame();
-  }
+
+
 }
 function gameOver() {
 let greenPercentage = (greenFrames / gameTimer) * 100;
@@ -67,7 +88,8 @@ let greenPercentage = (greenFrames / gameTimer) * 100;
   text("Click To Restart", width/200, height/2 + 60);
   noLoop();
   gameOverFlag = true;
-  restartGame();
+
+
 
 }
 
@@ -103,4 +125,9 @@ function drawSquare() {
 
   fill(squareColor);
   rect(squareX, squareY, 50, 50);
+}
+function mouseClicked() {
+  if (gameOverFlag) {
+    restartGame();
+  }
 }
