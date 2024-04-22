@@ -36,7 +36,10 @@ let game3Over = false; // Variable to track if the game is over
 let game3EndTime; // Variable to track the time when the game ended
 let waitTime = 5; // Change wait time to 5 seconds
 let waitStartTime; // Variable to track the time when the waiting period started
-function game3Preload() {}
+
+function game2Preload(){
+  
+}
 
 //when adding game setup ensure current infomation stays the same.
 function game3Setup() {

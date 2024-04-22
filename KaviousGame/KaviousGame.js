@@ -1,6 +1,12 @@
 let shapes = [];
 let targets = [];
 let score = 0;
+let startTime;
+let game2Running = false; // Variable to track if the game is running
+let game2Over = false; // Variable to track if the game is over
+let game2EndTime; // Variable to track the time when the game ended
+let waitTime = 5; // Change wait time to 5 seconds
+let waitStartTime; // Variable to track the time when the waiting period started
 
 //add the path of any image here
 function game2Preload(){
@@ -10,7 +16,6 @@ function game2Preload(){
 //when adding game setup ensure current infomation stays the same. 
 function game2Setup() {
   currentActivity = 3;
-  createCanvas(720, 400);
   
   // Create targets on the left side
   targets.push(new Target(50, height / 2, 'triangle'));
@@ -34,7 +39,8 @@ function game2Setup() {
 
 
 //draw game propery (please make sure the name of function stays as is.)
-function game2Draw(){
+function game2draw()
+  if (!game2Running) {
   background(255);
   
   // Display targets
