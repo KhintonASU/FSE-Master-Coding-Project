@@ -39,7 +39,7 @@ function game2Setup() {
 
 
 //draw game propery (please make sure the name of function stays as is.)
-function game2draw()
+function game2Draw(){
   if (!game2Running) {
   background(255);
   
@@ -59,7 +59,7 @@ function game2draw()
   fill(0);
   text('Score: ' + score, 20, 30);
 }
-
+}
 function mousePressed() {
   for (let shape of shapes) {
     if (shape.contains(mouseX, mouseY)) {
