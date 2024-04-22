@@ -26,7 +26,7 @@ function game2Setup() {
   museveniButton.hide();
   noahButton.hide();
 
-  faizanDetailsText.hide();
+  faizanDetailsText.hide()
   kaviousDetailsText.hide();
   museveniDetailsText.hide();
   noahDetailsText.hide();
@@ -213,4 +213,3 @@ class Target {
     return (px > this.x - this.size / 2 && px < this.x + this.size / 2 && py > this.y - this.size / 2 && py < this.y + this.size / 2);
   }
 }
-
