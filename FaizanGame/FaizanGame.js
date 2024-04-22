@@ -7,7 +7,7 @@ let gameTimer = 0;
 let squareColor = 'black';
 let greenFrames = 0;
 let gameOverFlag = false;
-
+//Add a background color
 //add the path of any image here
 function game1Preload(){
 
@@ -15,7 +15,7 @@ function game1Preload(){
 
 //when adding game setup ensure current infomation stays the same. 
 function game1Setup() {
-  background("white");
+  background("black");
   currentActivity = 2;
 
   homeButton.show();
@@ -33,7 +33,8 @@ function game1Setup() {
 
 //draw game propery (please make sure the name of function stays as is.)
 function game1Draw() {
-  background(255);
+  background(255, 204, 0);
+  //color(255, 204, 0);
 
   if (!gameOverFlag) {
     moveSquare();
