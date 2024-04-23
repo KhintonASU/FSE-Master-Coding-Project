@@ -34,7 +34,8 @@ function game2Setup() {
 
 
 //draw game propery (please make sure the name of function stays as is.)
-function game2Draw(){
+function game2draw()
+  if (!game2Running) {
   background(255);
   
   // Display targets
@@ -53,7 +54,7 @@ function game2Draw(){
   fill(0);
   text('Score: ' + score, 20, 30);
 }
-
+}
 function mousePressed() {
   for (let shape of shapes) {
     if (shape.contains(mouseX, mouseY)) {
