@@ -1,23 +1,37 @@
 https://github.com/KhintonASU/FSE-Master-Coding-Project.git
 
-const points = [];
-let dragPoint = null;
-let colors = ['#FF0000', '#FFAA00', '#008FFF', '#0CFF00'];
+const pointss = [];
+let dragPPoint = null;
+const dragRRadius = 40;
+let startTTime;
+let timerVValue = 20;
+let displayYYes = false; // Flag to track if "YES" has been displayed
+let gameEEnded = false; // Flag to track if the game has ended
 
-const numPoints = 4;
-const dragRadius = 40;
+const numPointss = 4;
+const toleranceRRange = 100; // Tolerance range for x-coordinate comparison
+
+// Store the x-coordinates of the static shapes and their tolerance range
+const staticSShapeX = [
+  { x: 80, tolerance: toleranceRRange },
+  { x: 140, tolerance: toleranceRRange },
+  { x: 220, tolerance: toleranceRRange },
+  { x: 320, tolerance: toleranceRRange }
+];
 
 function setup() {
   createCanvas(400, 400);
-  for (let i = 0; i < numPoints; i++) {
-    points.push(createVector((80 * i) + 80, 200));
+  for (let i = 0; i < numPointss; i++) {
+    pointss.push(createVector((80 * i) + 80, 200));
   }
+  shuffle(pointss, true); // Shuffle the pointss array
+  startTTime = millis();
 }
 
 function draw() {
   background(220);
   stroke('#000');
- 
+
   // Draw shapes
   fill('#FF0000');
   circle(80, 100, 40);
@@ -27,77 +41,122 @@ function draw() {
   triangle(220, 120, 240, 80, 260, 120);
   fill('#0CFF00');
   circle(320, 100, 40);
-  fill('#FF0000');
 
   // Draw draggable shapes
-  for (let i = 0; i < points.length; i++) {
+  for (let i = 0; i < pointss.length; i++) {
     if (i === 0) {
-      fill(colors[2]); // Color matching the first shape
-      triangle(points[i].x, points[i].y - dragRadius / 2,
-               points[i].x - dragRadius / 2, points[i].y + dragRadius / 2,
-               points[i].x + dragRadius / 2, points[i].y + dragRadius / 2);
-       if (200 < points[i].x && points[i].x < 300) {
-          text('I',346,300);
-        }
+      fill('#FF0000'); // Red circle
+      circle(pointss[i].x, pointss[i].y, dragRRadius);
     } else if (i === 1) {
-      fill(colors[3]); // Color matching the second shape
-      circle(points[i].x, points[i].y, dragRadius);
-        if (points[i].x > 300) {
-          text('I',350,300);
-        }
+      fill('#FFAA00'); // Orange square
+      square(pointss[i].x - dragRRadius / 2, pointss[i].y - dragRRadius / 2, dragRRadius);
     } else if (i === 2) {
-      fill(colors[0]); // Color matching the third shape
-      circle(points[i].x, points[i].y, dragRadius);
-       if (points[i].x < 100) {
-          text('I',342,300);
-       }
+      fill('#008FFF'); // Blue triangle
+      triangle(pointss[i].x, pointss[i].y - dragRRadius / 2,
+               pointss[i].x - dragRRadius / 2, pointss[i].y + dragRRadius / 2,
+               pointss[i].x + dragRRadius / 2, pointss[i].y + dragRRadius / 2);
     } else if (i === 3) {
-      fill(colors[1]); // Color matching the fourth shape
-      square(points[i].x - dragRadius / 2, points[i].y - dragRadius / 2, dragRadius);
-       if (100 < points[i].x && points[i].x < 200) {
-          text('I',338,300);
-       }
+      fill('#0CFF00'); // Green circle
+      circle(pointss[i].x, pointss[i].y, dragRRadius);
     }
   }
+ 
+  // Update timer
+  let elapsedTTime = (millis() - startTTime) / 1000;
+  let remainingTTime = max(timerVValue - elapsedTTime, 0);
+
+  // Display timer
   fill('#000');
-  text("Shapes in the right order:      / IIII", 200, 300);
-  text("IIII / IIII = A Win!!!", 280, 320)
+  textSize(20);
+  text("Time left: " + remainingTTime.toFixed(1), 20, 30);
+
+  // Display instructions
+  textSize(16);
+  fill('#000');
+  text("Instructions: Match the order of the bottom shapes", 20, 310);
+  text("to the top ones", 105, 330);
+ 
+  // Check if shapes are in the correct order from left to right
+  let correctOOrder = true;
+  for (let i = 0; i < staticSShapeX.length - 1; i++) {
+    if (pointss[i].x > pointss[i + 1].x) {
+      correctOOrder = false;
+      break;
+    }
+  }
+
+  // End game if timer reaches zero or "YES" is displayed
+  if (correctOOrder && !displayYYes) {
+    fill('#00FF00');
+    text("YES", 250, 300);
+    displayYYes = true;
+    gameEEnded = true; // Set gameEEnded flag to true
+  } else if (!correctOOrder && remainingTTime === 0) {
+    fill('#FF0000');
+    text("Time ran out, you lost!", 150, 300);
+    gameEEnded = true; // Set gameEEnded flag to true
+  }
+
+  // End game if timer reaches zero or "YES" is displayed
+  if (gameEEnded) {
+    noLoop(); // Stop the draw loop
+    background(220); // Clear the canvas
+   
+    // Display time taken and "You win!" or "You lost!" message
+    if (displayYYes) {
+      let timeTTaken = 20 - remainingTTime;
+      text("Time taken: " + timeTTaken.toFixed(1) + " seconds", 125, 200);
+      text("You win!", 170, 250);
+    } else {
+      text("Time ran out, you lost!", 125, 250);
+    }
+
+    // Restart button
+    fill(0);
+    rect(150, 300, 100, 40);
+    fill(255);
+    textSize(16);
+    text("Restart", 175, 325);
+  }
 }
 
-
-
-
 function mousePressed() {
-  for (let i = 0; i < points.length; i++) {
-    const isPressed = mouseInShape(points[i], i, dragRadius);
-    if (isPressed) {
-      dragPoint = i;
-      break;
+  if (gameEEnded && mouseX > 150 && mouseX < 250 && mouseY > 300 && mouseY < 340) {
+    restartGGame();
+  } else {
+    for (let i = 0; i < pointss.length; i++) {
+      const isPPressed = mouseInShape(pointss[i], i, dragRRadius);
+      if (isPPressed) {
+        dragPPoint = i;
+        break;
+      }
     }
   }
 }
 
 function mouseDragged() {
-  if (dragPoint !== null) {
-    points[dragPoint].x = mouseX;
-    points[dragPoint].y = mouseY;
+  if (dragPPoint !== null) {
+    pointss[dragPPoint].x = mouseX;
+    pointss[dragPPoint].y = mouseY;
   }
 }
 
 function mouseReleased() {
-  dragPoint = null;
+  dragPPoint = null;
 }
 
 function mouseInShape(pos, index, radius) {
-  switch (index) {
-    case 0:
-    case 3:
-      return dist(mouseX, mouseY, pos.x, pos.y) < radius;
-    case 1:
-      return mouseX > pos.x - radius / 2 && mouseX < pos.x + radius / 2 && mouseY > pos.y - radius / 2 && mouseY < pos.y + radius / 2;
-    case 2:
-      return mouseX > pos.x - radius / 2 && mouseX < pos.x + radius / 2 && mouseY > pos.y - radius / 2 && mouseY < pos.y + radius / 2;
-    default:
-      return false;
+  return dist(mouseX, mouseY, pos.x, pos.y) < radius;
+}
+
+function restartGGame() {
+  pointss.length = 0; // Clear the pointss array
+  for (let i = 0; i < numPointss; i++) {
+    pointss.push(createVector((80 * i) + 80, 200));
   }
+  shuffle(pointss, true); // Shuffle the pointss array
+  startTTime = millis();
+  displayYYes = false;
+  gameEEnded = false;
+  loop(); // Restart the draw loop
 }
