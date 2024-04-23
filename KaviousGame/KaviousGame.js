@@ -10,7 +10,6 @@ function game2Preload(){
 //when adding game setup ensure current infomation stays the same. 
 function game2Setup() {
   currentActivity = 3;
-  createCanvas(720, 400);
   
   // Create targets on the left side
   targets.push(new Target(50, height / 2, 'triangle'));
@@ -35,7 +34,6 @@ function game2Setup() {
 
 //draw game propery (please make sure the name of function stays as is.)
 function game2draw()
-  if (!game2Running) {
   background(255);
   
   // Display targets
