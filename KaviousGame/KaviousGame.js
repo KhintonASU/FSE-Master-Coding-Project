@@ -3,9 +3,7 @@ let targets = [];
 let score = 0;
 
 //add the path of any image here
-function game2Preload(){
-  
-}
+function game2Preload(){}
 
 //when adding game setup ensure current infomation stays the same. 
 function game2Setup() {

@@ -10,7 +10,6 @@ let faizanDetailsText, kaviousDetailsText, museveniDetailsText, noahDetailsText;
 
 function preload(){
   game1Preload();
-  game2Preload();
   game3Preload();
   game4Preload();
 }

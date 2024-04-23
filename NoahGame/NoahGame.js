@@ -16,11 +16,11 @@ const staticSShapeX = [
   { x: 220, tolerance: toleranceRRange },
   { x: 320, tolerance: toleranceRRange }
 ];
-function game4Preload(){
-}
+
+function game4Preload(){}
 
 function game4Setup() {
-  createCanvas(720, 400);
+  currentActivity = 5;
   for (let i = 0; i < numPointss; i++) {
     pointss.push(createVector((80 * i) + 80, 200));
   }
