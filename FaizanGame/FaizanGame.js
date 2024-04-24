@@ -42,7 +42,7 @@ function game1Draw() {
     gameTimer++;
 
     if (gameTimer > 10 * 30) {
-      gameOver();
+      game3Over();
     }
   }
 
@@ -65,7 +65,7 @@ function game1Draw() {
 }
 
 
-function restartGame() {
+function restartGame3() {
 
 
     gameTimer = 0;
@@ -79,7 +79,7 @@ function restartGame() {
 
 
 }
-function gameOver() {
+function game3Over() {
 let greenPercentage = (greenFrames / gameTimer) * 100;
 
   fill(0);
@@ -129,6 +129,6 @@ function drawSquare() {
 }
 function mouseClicked() {
   if (gameOverFlag) {
-    restartGame();
+    restartGame3();
   }
 }
