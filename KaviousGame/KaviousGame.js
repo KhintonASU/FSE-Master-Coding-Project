@@ -42,7 +42,7 @@ function game2Draw() {
   }
 }
 
-function keyPressed() {
+function game2KeyPressed() {
   if (keyCode === ENTER) {
     if (!gameStarted) {
       startGame();
@@ -119,7 +119,7 @@ function displayTimer() {
   text('Time: ' + (gameTime - floor(timer)), 20, 60);
 }
 
-function game2mousePressed() {
+function game2MousePressed() {
   for (let shape of shapes) {
     if (shape.contains(mouseX, mouseY)) {
       shape.dragging = true;
@@ -129,7 +129,7 @@ function game2mousePressed() {
   }
 }
 
-function game2mouseReleased() {
+function game2MouseReleased() {
   let droppedShape = null;
   for (let shape of shapes) {
     shape.dragging = false;

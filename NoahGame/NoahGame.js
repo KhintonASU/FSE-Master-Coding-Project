@@ -133,7 +133,7 @@ function game4Draw(){
   }
 }
 
-function mousePressed() {
+function game4MousePressed() {
   if (gameEEnded && mouseX > 150 && mouseX < 250 && mouseY > 300 && mouseY < 340) {
     restartGGame();
   } else {
@@ -154,7 +154,7 @@ function mouseDragged() {
   }
 }
 
-function mouseReleased() {
+function game4MouseReleased() {
   dragPPoint = null;
 }
 

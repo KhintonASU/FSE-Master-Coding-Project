@@ -127,7 +127,8 @@ function drawSquare1() {
   fill(squareColor);
   rect(squareX, squareY, 50, 50);
 }
-function mouseClicked() {
+
+function mouseClicked() {  
   if (gameOverFlag) {
     restartGame1();
   }

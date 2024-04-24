@@ -104,9 +104,9 @@ if (timePassed >= limit) {
 }
 }
 
-function keyPressed() {
+function game3KeyPressed() {
   if (!game3Running || game3Over) {
-      if (gameOver && Math.floor(Date.now() / 1000) - game3EndTime < game3waitTime) {
+      if (game3Over && Math.floor(Date.now() / 1000) - game3EndTime < game3waitTime) {
           // If the game is over and less than waitTime seconds have passed since it ended, do nothing
           return;
       }

@@ -203,3 +203,32 @@ function createDetailsText(x, y, details, visible) {
   });
   return detailText;
 }
+
+function mousePressed(){
+  // Only game 4 uses the mousePressed function, but the switch statement
+  // makes it easy to add the mousePressed functionality for other games.
+  switch(currentActivity){
+    case 2: 
+      game2MousePressed();
+      break;
+    case 3:
+      game3MousePressed();
+      break;
+    case 5: 
+      game4MousePressed();
+      break;
+  }
+}
+
+function keyPressed(){
+  // Only game 4 uses the mousePressed function, but the switch statement
+  // makes it easy to add the mousePressed functionality for other games.
+  switch(currentActivity){
+    case 3: 
+      game2KeyPressed();
+      break;
+    case 4: 
+      game3KeyPressed();
+      break;
+  }
+}
