@@ -1,7 +1,7 @@
 let welcomeText;
 let homeButton, kaviousButton, museveniButton, noahButton, faizanButton;
-let faizanDetails = "Follow The Outline Game: This game helps improve fine motor skills by following outlined shapes.";
-let kaviousDetails = "Drag and Drop Game: This game focuses on drag-and-drop interactions to enhance motor skills.";
+let faizanDetails = "Follow The Box Game: This game helps improve fine motor skills by following outlined shapes.";
+let kaviousDetails = "Drag and Drop Game: This game helps improve with applying pressure and coordination with hand movement and finger placement.";
 let museveniDetails = "Typing Game: This game improves typing speed and accuracy.";
 let noahDetails = "Stacking Objects Game: This game enhances spatial awareness and coordination.";
 let currentActivity = 0;
@@ -44,7 +44,7 @@ function setup() {
   homeButton.position(width / 2 - homeButton.width / 2, height / 2 + 50);
   homeButton.mousePressed(switchToMM);
 
-  faizanButton = createButton('Follow The Outline Game');
+  faizanButton = createButton('Follow The Box Game');
   faizanButton.position(10, 50);
   faizanButton.mousePressed(faizanButtonPressed);
   faizanButton.mouseOver(faizanButtonHover);
