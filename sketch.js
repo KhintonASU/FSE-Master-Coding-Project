@@ -209,13 +209,26 @@ function mousePressed(){
   // makes it easy to add the mousePressed functionality for other games.
   switch(currentActivity){
     case 2: 
-      game2MousePressed();
+      game1MousePressed();
       break;
     case 3:
-      game3MousePressed();
+      game2MousePressed();
       break;
     case 5: 
       game4MousePressed();
+      break;
+  }
+}
+
+function mouseReleased(){
+  // Only game 4 uses the mousePressed function, but the switch statement
+  // makes it easy to add the mousePressed functionality for other games.
+  switch(currentActivity){
+    case 3:
+      game2MouseReleased();
+      break;
+    case 5: 
+      game4MouseReleased();
       break;
   }
 }
@@ -232,3 +245,4 @@ function keyPressed(){
       break;
   }
 }
+

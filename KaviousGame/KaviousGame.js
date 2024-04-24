@@ -1,7 +1,7 @@
 let shapes = [];
 let targets = [];
 let score = 0;
-let gameStarted = false;
+let game2Started = false;
 let timer = 0;
 const gameTime = 20;
 
@@ -31,43 +31,43 @@ function game2Setup() {
 }
 
 function game2Draw() {
-  if (!gameStarted) {
-    startScreen();
+  if (!game2Started) {
+    game2StartTime();
   } else {
     timer += deltaTime / 1000;
-    gameScreen();
+    game2Screen();
     if (timer >= gameTime) {
-      gameOverScreen();
+      game2OverScreen();
     }
   }
 }
 
 function game2KeyPressed() {
   if (keyCode === ENTER) {
-    if (!gameStarted) {
-      startGame();
+    if (!game2Started) {
+      game2StartGamee();
     } else if (timer >= gameTime) {
-      restartGame();
+      game2ResttartGamee();
     }
   }
 }
 
-function startGame() {
-  gameStarted = true;
+function game2StartGamee() {
+  game2Started = true;
   timer = 0;
   score = 0;
   shapes = [];
-  generateShape();
+  game2GenerateShape();
 }
 
-function restartGame() {
+function game2ResttartGamee() {
   timer = 0;
   score = 0;
   shapes = [];
-  startGame();
+  game2StartGamee();
 }
 
-function startScreen() {
+function game2StartTime() {
   background(200);
   textSize(24);
   fill(0);
@@ -77,15 +77,15 @@ function startScreen() {
   text('Press Enter to Start', width/2 - 100 , height/2 + 50);
 }
 
-function gameScreen() {
+function game2Screen() {
   background(255);
-  displayTargets();
-  displayShapes();
-  displayScore();
-  displayTimer();
+  game2DisplayTarget();
+  game2DisplayShapes();
+  game2DisplayScore();
+  game2DisplayTimer();
 }
 
-function gameOverScreen() {
+function game2OverScreen() {
   background(200);
   textSize(32);
   fill(0);
@@ -94,26 +94,26 @@ function gameOverScreen() {
   text('Press Enter to Play Again', width/2 - 140, height/2 + 30);
 }
 
-function displayTargets() {
+function game2DisplayTarget() {
   for (let target of targets) {
     target.display();
   }
 }
 
-function displayShapes() {
+function game2DisplayShapes() {
   for (let shape of shapes) {
     shape.display();
     shape.update();
   }
 }
 
-function displayScore() {
+function game2DisplayScore() {
   textSize(20);
   fill(0);
   text('Score: ' + score, 20, 30);
 }
 
-function displayTimer() {
+function game2DisplayTimer() {
   textSize(20);
   fill(0);
   text('Time: ' + (gameTime - floor(timer)), 20, 60);
@@ -130,7 +130,7 @@ function game2MousePressed() {
 }
 
 function game2MouseReleased() {
-  let droppedShape = null;
+  let game2DroppedShape = null;
   for (let shape of shapes) {
     shape.dragging = false;
     for (let target of targets) {
@@ -139,18 +139,18 @@ function game2MouseReleased() {
         shape.y = target.y;
         shape.color = color(0, 255, 0);
         score++;
-        droppedShape = shape;
+        game2DroppedShape = shape;
         break;
       }
     }
   }
-  if (droppedShape) {
-    shapes = shapes.filter(shape => shape !== droppedShape);
-    generateShape();
+  if (game2DroppedShape) {
+    shapes = shapes.filter(shape => shape !== game2DroppedShape);
+    game2GenerateShape();
   }
 }
 
-function generateShape() {
+function game2GenerateShape() {
   let randomType = random(['triangle', 'square', 'circle']);
   let randomColor = color(random(255), random(255), random(255));
   let newShape = new Shape(width - 100, height / 2, randomType, randomColor);
