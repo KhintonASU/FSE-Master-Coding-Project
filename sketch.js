@@ -44,7 +44,7 @@ function setup() {
   homeButton.position(width / 2 - homeButton.width / 2, height / 2 + 50);
   homeButton.mousePressed(switchToMM);
 
-  faizanButton = createButton("Follow The Outline Game");
+  faizanButton = createButton("Follow The Box Game");
   faizanButton.position(10, 50);
   faizanButton.mousePressed(faizanButtonPressed);
   faizanButton.mouseOver(faizanButtonHover);
