@@ -62,10 +62,10 @@ function game3Draw() {
   if (!game3Running) {
     background(255, 204, 0); // Set background color to yellow
     textSize(20);
-    fill(255); // Set text color to white
+    fill(0); // Set text color to white
     text("Instructions: See how many letters you can type before the time runs out.", width/2, height/2 - 50);
     textSize(32);
-    fill(255); // Set text color to white
+    fill(0); // Set text color to white
     if (game3Over) {
         text("Game Over! Your final score is: " + game3score, width/2, height/2);
         if (Math.floor(Date.now() / 1000) - game3EndTime < game3waitTime) {
@@ -85,12 +85,12 @@ let timePassed = currentTime - game3startTime; // Calculate time passed in secon
 
 background(0, 102, 204); // Set background color to blue
 textSize(24);
-fill(255); // Set text color to white
+fill(0); // Set text color to white
 text("Time Left: " + Math.max(limit - timePassed, 0) + " sec", width/2, 50);
 textSize(32);
 fill(255, 204, 0); // Set text color to yellow
 text("Press the key: " + currentLetter, width/2, 150);
-fill(255); // Set text color to white
+fill(0); // Set text color to white
 text(feedbackMessage, width/2, 200);
 if (!feedbackMessage) { // Show score only if feedbackMessage is empty
     text("Score: " + game3score, width/2, 250);
