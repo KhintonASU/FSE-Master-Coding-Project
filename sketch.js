@@ -8,6 +8,7 @@ let currentActivity = 0;
 let bg;
 let faizanDetailsText, kaviousDetailsText, museveniDetailsText, noahDetailsText;
 
+
 function preload(){
   game1Preload();
   game3Preload();
@@ -29,6 +30,7 @@ function setup() {
   currentActivity = 0;
   bg = loadImage('assets/background-image-2.jpg');
   createCanvas(720, 400);
+
 
   
   // Welcome page
