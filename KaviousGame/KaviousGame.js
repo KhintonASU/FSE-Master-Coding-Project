@@ -119,7 +119,7 @@ function displayTimer() {
   text('Time: ' + (gameTime - floor(timer)), 20, 60);
 }
 
-function mousePressed() {
+function game2mousePressed() {
   for (let shape of shapes) {
     if (shape.contains(mouseX, mouseY)) {
       shape.dragging = true;
@@ -129,7 +129,7 @@ function mousePressed() {
   }
 }
 
-function mouseReleased() {
+function game2mouseReleased() {
   let droppedShape = null;
   for (let shape of shapes) {
     shape.dragging = false;
