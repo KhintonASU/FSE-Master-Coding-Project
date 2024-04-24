@@ -89,9 +89,6 @@ let greenPercentage = (greenFrames / gameTimer) * 100;
   text("Click To Restart", width/200, height/2 + 60);
   noLoop();
   gameOverFlag = true;
-
-
-
 }
 
 
