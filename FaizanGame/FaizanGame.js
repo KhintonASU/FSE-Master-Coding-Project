@@ -37,12 +37,12 @@ function game1Draw() {
   //color(255, 204, 0);
 
   if (!gameOverFlag) {
-    moveSquare();
-    drawSquare();
+    moveSquare1();
+    drawSquare1();
     gameTimer++;
 
     if (gameTimer > 10 * 30) {
-      game3Over();
+      game1Over();
     }
   }
 
@@ -65,7 +65,7 @@ function game1Draw() {
 }
 
 
-function restartGame3() {
+function restartGame1() {
 
 
     gameTimer = 0;
@@ -79,7 +79,7 @@ function restartGame3() {
 
 
 }
-function game3Over() {
+function game1Over() {
 let greenPercentage = (greenFrames / gameTimer) * 100;
 
   fill(0);
@@ -95,7 +95,7 @@ let greenPercentage = (greenFrames / gameTimer) * 100;
 }
 
 
-function moveSquare() {
+function moveSquare1() {
   squareX += speedX;
   squareY += speedY;
 
@@ -115,7 +115,7 @@ function moveSquare() {
   }
 
 }
-function drawSquare() {
+function drawSquare1() {
   // Check if mouse is on the square
   if (mouseX > squareX && mouseX < squareX + 50 && mouseY > squareY && mouseY < squareY + 50) {
       squareColor = 'green';
@@ -129,6 +129,6 @@ function drawSquare() {
 }
 function mouseClicked() {
   if (gameOverFlag) {
-    restartGame3();
+    restartGame1();
   }
 }
