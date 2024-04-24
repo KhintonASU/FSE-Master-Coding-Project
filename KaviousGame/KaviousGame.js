@@ -131,6 +131,7 @@ function game2MousePressed() {
 
 function game2MouseReleased() {
   let game2DroppedShape = null;
+  let droppedOutsideTarget = true; // Assume shape dropped outside target initially
   for (let shape of shapes) {
     shape.dragging = false;
     for (let target of targets) {
@@ -140,8 +141,23 @@ function game2MouseReleased() {
         shape.color = color(0, 255, 0);
         score++;
         game2DroppedShape = shape;
+        droppedOutsideTarget = false; // Shape dropped inside target
         break;
       }
+    }
+    if (droppedOutsideTarget) {
+      // Save the original color
+      const originalColor = shape.color;
+      // Change the color to red
+      shape.color = color(255, 0, 0);
+      // Flashing effect: Change back to original color after a short delay
+      setTimeout(() => {
+        shape.color = originalColor; // Revert back to original color
+        // Clear the timeout and revert the color back again after a short delay
+        setTimeout(() => {
+          shape.color = originalColor; // Revert back to original color again
+        }, 250); // Delay before reverting to original color again
+      }, 500); // Flashing duration in milliseconds (e.g., 500 ms = 0.5 seconds)
     }
   }
   if (game2DroppedShape) {
@@ -149,6 +165,7 @@ function game2MouseReleased() {
     game2GenerateShape();
   }
 }
+
 
 function game2GenerateShape() {
   let randomType = random(['triangle', 'square', 'circle']);
