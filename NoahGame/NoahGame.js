@@ -14,15 +14,15 @@ const staticSShapeX = [
   { x: 80, tolerance: toleranceRRange },
   { x: 140, tolerance: toleranceRRange },
   { x: 220, tolerance: toleranceRRange },
-  { x: 320, tolerance: toleranceRRange }
+  { x: 320, tolerance: toleranceRRange },
 ];
 
-function game4Preload(){}
+function game4Preload() {}
 
 function game4Setup() {
   currentActivity = 5;
   for (let i = 0; i < numPointss; i++) {
-    pointss.push(createVector((80 * i) + 80, 200));
+    pointss.push(createVector(80 * i + 80, 200));
   }
   shuffle(pointss, true); // Shuffle the pointss array
   startTTime = millis();
@@ -39,56 +39,64 @@ function game4Setup() {
   noahButton.hide();
 }
 
-
 //draw game propery (please make sure the name of function stays as is.)
-function game4Draw(){
+function game4Draw() {
   background(220);
-  stroke('#000');
+  stroke("#000");
 
   // Draw shapes
-  fill('#FF0000');
+  fill("#FF0000");
   circle(80, 100, 40);
-  fill('#FFAA00');
+  fill("#FFAA00");
   square(140, 80, 40);
-  fill('#008FFF');
+  fill("#008FFF");
   triangle(220, 120, 240, 80, 260, 120);
-  fill('#0CFF00');
+  fill("#0CFF00");
   circle(320, 100, 40);
 
   // Draw draggable shapes
   for (let i = 0; i < pointss.length; i++) {
     if (i === 0) {
-      fill('#FF0000'); // Red circle
+      fill("#FF0000"); // Red circle
       circle(pointss[i].x, pointss[i].y, dragRRadius);
     } else if (i === 1) {
-      fill('#FFAA00'); // Orange square
-      square(pointss[i].x - dragRRadius / 2, pointss[i].y - dragRRadius / 2, dragRRadius);
+      fill("#FFAA00"); // Orange square
+      square(
+        pointss[i].x - dragRRadius / 2,
+        pointss[i].y - dragRRadius / 2,
+        dragRRadius
+      );
     } else if (i === 2) {
-      fill('#008FFF'); // Blue triangle
-      triangle(pointss[i].x, pointss[i].y - dragRRadius / 2,
-               pointss[i].x - dragRRadius / 2, pointss[i].y + dragRRadius / 2,
-               pointss[i].x + dragRRadius / 2, pointss[i].y + dragRRadius / 2);
+      fill("#008FFF"); // Blue triangle
+      triangle(
+        pointss[i].x,
+        pointss[i].y - dragRRadius / 2,
+        pointss[i].x - dragRRadius / 2,
+        pointss[i].y + dragRRadius / 2,
+        pointss[i].x + dragRRadius / 2,
+        pointss[i].y + dragRRadius / 2
+      );
     } else if (i === 3) {
-      fill('#0CFF00'); // Green circle
+      fill("#0CFF00"); // Green circle
       circle(pointss[i].x, pointss[i].y, dragRRadius);
     }
   }
- 
+
   // Update timer
   let elapsedTTime = (millis() - startTTime) / 1000;
   let remainingTTime = max(timerVValue - elapsedTTime, 0);
 
   // Display timer
-  fill('#000');
+  fill("#000");
   textSize(20);
   text("Time left: " + remainingTTime.toFixed(1), 20, 30);
 
   // Display instructions
   textSize(16);
-  fill('#000');
+  fill("#000");
   text("Instructions: Match the order of the bottom shapes", 20, 310);
   text("to the top ones", 105, 330);
- 
+
   // Check if shapes are in the correct order from left to right
   let correctOOrder = true;
   for (let i = 0; i < staticSShapeX.length - 1; i++) {
@@ -100,12 +108,12 @@ function game4Draw(){
 
   // End game if timer reaches zero or "YES" is displayed
   if (correctOOrder && !displayYYes) {
-    fill('#00FF00');
+    fill("#00FF00");
     text("YES", 250, 300);
     displayYYes = true;
     gameEEnded = true; // Set gameEEnded flag to true
   } else if (!correctOOrder && remainingTTime === 0) {
-    fill('#FF0000');
+    fill("#FF0000");
     text("Time ran out, you lost!", 150, 300);
     gameEEnded = true; // Set gameEEnded flag to true
   }
@@ -114,7 +122,7 @@ function game4Draw(){
   if (gameEEnded) {
     noLoop(); // Stop the draw loop
     background(220); // Clear the canvas
-   
+
     // Display time taken and "You win!" or "You lost!" message
     if (displayYYes) {
       let timeTTaken = 20 - remainingTTime;
@@ -134,7 +142,13 @@ function game4Draw(){
 }
 
 function game4MousePressed() {
-  if (gameEEnded && mouseX > 150 && mouseX < 250 && mouseY > 300 && mouseY < 340) {
+  if (
+    gameEEnded &&
+    mouseX > 150 &&
+    mouseX < 250 &&
+    mouseY > 300 &&
+    mouseY < 340
+  ) {
     restartGGame();
   } else {
     for (let i = 0; i < pointss.length; i++) {
@@ -165,7 +179,7 @@ function mouseInShape(pos, index, radius) {
 function restartGGame() {
   pointss.length = 0; // Clear the pointss array
   for (let i = 0; i < numPointss; i++) {
-    pointss.push(createVector((80 * i) + 80, 200));
+    pointss.push(createVector(80 * i + 80, 200));
   }
   shuffle(pointss, true); // Shuffle the pointss array
   startTTime = millis();
