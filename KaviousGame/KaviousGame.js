@@ -1,12 +1,16 @@
 let shapes = [];
 let targets = [];
-let score = 0;
-let gameStarted = false;
-let timer;
-let timerDuration = 20; // 20 seconds
+let game2score = 0;
+let game2Started = false;
+let game2timer = 0;
+const gameTime = 20; // 20 seconds
+
+function game2Preload() {
+}
 
 function game2Setup() {
   currentActivity = 3;
+  createCanvas(720, 400);
   
   // Create targets on the left side
   targets.push(new Target(50, height / 2, 'triangle'));
@@ -24,144 +28,127 @@ function game2Setup() {
   museveniDetailsText.hide();
   noahDetailsText.hide();
 
-  startScreen();
-}
-
-function startScreen() {
-  background(255);
-  textSize(20);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  text("Welcome to the Shape Matching Game!", width / 2, height / 2 - 50);
-  text("Drag the shapes to their corresponding targets.", width / 2, height / 2 - 20);
-  text("Click anywhere to start.", width / 2, height / 2 + 50);
-}
-
-function endGameScreen() {
-  background(255);
-  textSize(32);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  text("Game Over\nYour Score: " + score, width / 2, height / 2);
-  text("Click to Restart", width / 2, height / 2 + 50);
-}
-
-function startGame() {
-  gameStarted = true;
-  score = 0;
-  shapes = [];
-  timer = millis() + timerDuration * 1000;
+  // Listen for key presses
+  document.addEventListener('keydown', keyPressed);
 }
 
 function game2Draw() {
-  if (!gameStarted) {
-    startScreen();
-    return;
-  }
-
-  background(255);
-
-  // Display targets
-  for (let target of targets) {
-    target.display();
-  }
-
-  // Display shapes
-  for (let shape of shapes) {
-    shape.display();
-    shape.update();
-  }
-
-  // Display score
-  textSize(20);
-  fill(0);
-  text('Score: ' + score, 20, 30);
-
-  // Display timer
-  let remainingTime = max(0, Math.ceil((timer - millis()) / 1000));
-  textSize(20);
-  fill(0);
-  text('Time: ' + remainingTime, 20, 60);
-
-  if (remainingTime === 0) {
-    endGame();
-  }
-}
-
-function endGame() {
-  gameStarted = false;
-  endGameScreen();
-}
-
-// Function to handle mouse press event for starting the game
-function startGameOnClick() {
-  if (!gameStarted) {
-    startGame();
-  }
-}
-
-// Bind unique mouse press event for starting the game
-function mousePressed() {
-  startGameOnClick();
-}
-
-// Function to handle mouse press event for dragging shapes
-function mousePressDrag() {
-  if (gameStarted) {
+  if (!game2Started
+) {
+    // Display start screen
+    background(200);
+    textSize(24);
+    fill(0);
+    text('INSTRUCTIONS:', width/2 - 100, height/2 - 100);
+    text(' Drag as many shapes as possible to the matching target.', width/2 - 300, height/2 -  50);
+    text('you have 20 seconds to complete this task.', width/2 - 200, height/2);
+    text('Press Enter to Start', width/2 - 100 , height/2 + 50);
+  } else {
+    // Increment game2timer when game is running
+    game2timer += deltaTime / 1000; // deltaTime is the time between frames in milliseconds, so we divide by 1000 to convert it to seconds
+    
+    // Display game screen
+    background(255);
+    
+    // Display targets
+    for (let target of targets) {
+      target.display();
+    }
+    
+    // Display shapes
     for (let shape of shapes) {
-      if (shape.contains(mouseX, mouseY)) {
-        shape.dragging = true;
-        shape.offsetX = mouseX - shape.x;
-        shape.offsetY = mouseY - shape.y;
-      }
+      shape.display();
+      shape.update();
+    }
+    
+    // Display game2score
+    textSize(20);
+    fill(0);
+    text('game2score: ' + game2score, 20, 30);
+    
+    // Display game2timer
+    textSize(20);
+    fill(0);
+    text('Time: ' + (gameTime - floor(game2timer)), 20, 60);
+    
+    // Check if game time is over
+    if (game2timer >= gameTime) {
+      game2Started
+     = false; // Stop the game
+      // Display endgame screen
+      background(200);
+      textSize(32);
+      fill(0);
+      text('Game Over', width/2 - 80, height/2 - 30);
+      text('game2score: ' + game2score, width/2 - 60, height/2);
+      text('Press Enter to Play Again', width/2 - 140, height/2 + 30);
     }
   }
 }
 
-// Function to handle mouse release event for dragging shapes
-function mouseReleaseDrag() {
-  if (gameStarted) {
-    let droppedShape = null;
-    for (let shape of shapes) {
-      shape.dragging = false;
-      let droppedAtCorrectTarget = false; // Flag to determine if dropped at correct target
-      for (let target of targets) {
-        if (target.contains(mouseX, mouseY) && target.type === shape.type) {
-          shape.x = target.x;
-          shape.y = target.y;
-          shape.color = color(0, 255, 0); // Green if dropped in correct target
-          score++;
-          droppedShape = shape;
-          droppedAtCorrectTarget = true; // Set to true if dropped at correct target
-          break;
-        }
-      }
-      if (!droppedAtCorrectTarget) {
-        // Flash red briefly when dropped at the wrong target
-        shape.flashRed = true;
-        setTimeout(() => { shape.flashRed = false; }, 500); // Flash for 0.5 seconds
-      }
-    }
-
-    // Remove the dropped shape from the shapes array
-    if (droppedShape) {
-      shapes = shapes.filter(shape => shape !== droppedShape);
-      // Generate a new shape after despawning
+function keyPressed() {
+  if (keyCode === ENTER) {
+    if (!game2Started
+  ) {
+      // Start the game when Enter is pressed
+      game2Started
+     = true;
+      game2timer = 0;
+      game2score = 0; // Reset game2score
+      shapes = []; // Clear shapes array
+      generateShape(); // Generate initial shape
+    } else if (game2timer >= gameTime) {
+      // Restart the game when Enter is pressed after game over
+      game2timer = 0;
+      game2score = 0;
+      shapes = [];
+      game2Started
+     = true;
       generateShape();
     }
   }
 }
 
-// Bind unique mouse press event for dragging shapes
 function mousePressed() {
-  mousePressDrag();
+  for (let shape of shapes) {
+    if (shape.contains(mouseX, mouseY)) {
+      shape.dragging = true;
+      shape.offsetX = mouseX - shape.x;
+      shape.offsetY = mouseY - shape.y;
+    }
+  }
 }
 
-// Bind unique mouse release event for dragging shapes
 function mouseReleased() {
-  mouseReleaseDrag();
-}
+  let droppedShape = null;
+  for (let shape of shapes) {
+    shape.dragging = false;
+    let droppedAtCorrectTarget = false; // Flag to determine if dropped at correct target
+    for (let target of targets) {
+      if (target.contains(mouseX, mouseY) && target.type === shape.type) {
+        shape.x = target.x;
+        shape.y = target.y;
+        shape.color = color(0, 255, 0); // Green if dropped in correct target
+        game2score++;
+        droppedShape = shape;
+        droppedAtCorrectTarget = true; // Set to true if dropped at correct target
+        break;
+      }
+    }
+    if (!droppedAtCorrectTarget) {
+      // Flash red briefly when dropped at the wrong target
+      shape.flashRed = true;
+      setTimeout(() => { shape.flashRed = false; }, 500); // Flash for 0.5 seconds
+    }
+  }
 
+  // Remove the dropped shape from the shapes array
+  if (droppedShape) {
+    shapes = shapes.filter(shape => shape !== droppedShape);
+    // Generate a new shape after despawning
+    generateShape();
+  }
+}
 
 function generateShape() {
   let randomType = random(['triangle', 'square', 'circle']);
@@ -280,18 +267,4 @@ class Target {
   contains(px, py) {
     return (px > this.x - this.size / 2 && px < this.x + this.size / 2 && py > this.y - this.size / 2 && py < this.y + this.size / 2);
   }
-}
-
-// Bind unique mouse press events
-function mousePressed() {
-  mousePressDrag();
-}
-
-function mousePressStart() {
-  mousePressStart();
-}
-
-// Bind unique mouse release events
-function mouseReleased() {
-  mouseReleaseDrag();
 }
